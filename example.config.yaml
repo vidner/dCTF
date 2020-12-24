@@ -1,0 +1,14 @@
+credential:
+  token: "BOT_TOKEN"
+  secret: "CHANGE_ME_LATER_PLS"
+
+timeline:
+  freeze: 1608706274
+  end: 1608708274
+
+score:
+  maximal: 500
+  minimal: 100
+  decay: 20
+
+dburl: "postgres://user:password@localhost:5432/database"
