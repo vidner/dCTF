@@ -22,12 +22,11 @@ class Credential:
     def __init__(self, credential):
         self.token = credential["token"]
         self.secret = credential["secret"]
-
-def get_config():
-    env = yaml.load(open('config.yaml').read(), yaml.SafeLoader)
-    score = Score(env["score"])
-    timeline = Timeline(env["timeline"])
-    credential = Credential(env["credential"])
-    dburl = env["dburl"]
-    config = Config(credential, timeline, score, dburl)
-    return config
+        self.role = credential["role"]
+        
+env = yaml.load(open('config.yaml').read(), yaml.SafeLoader)
+score = Score(env["score"])
+timeline = Timeline(env["timeline"])
+credential = Credential(env["credential"])
+dburl = env["dburl"]
+config = Config(credential, timeline, score, dburl)

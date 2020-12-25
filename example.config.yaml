@@ -1,6 +1,7 @@
 credential:
   token: "BOT_TOKEN"
   secret: "CHANGE_ME_LATER_PLS"
+  role: "ADMIN_ROLE_NAME"
 
 timeline:
   freeze: 1608706274

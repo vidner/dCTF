@@ -1,11 +1,10 @@
-
-from config import get_config
 from sqlalchemy import Column, Integer, String, Date, ForeignKey
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-config = get_config()
+import config
+
 engine = create_engine(config.dburl)
 Base = declarative_base()
 Session = sessionmaker(bind=engine)
@@ -22,15 +21,16 @@ class UserSession(Base):
     user_id = Column(String)
     team_id = Column(Integer, ForeignKey('teams.id'))
 
-def create_team(teamname):
-    team = Team(name=teamname)
+def create_team(name):
+    team = Team(name=name)
     s.add(team)
     s.flush()
     s.refresh(team)
+    s.commit()
     return team
 
-def team_exist(teamname):
-    data = s.query(Team).filter_by(name=teamname).first()
+def team_exist(name):
+    data = s.query(Team).filter_by(name=name).first()
     return False if (data == None) else True
 
 def create_user_session(user_id, team_id):
