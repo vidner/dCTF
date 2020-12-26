@@ -12,7 +12,7 @@ def register(team: str):
         return f'{data.name} succesfully registered, here is your auth token ```{token}```'
 
 def login(user_id, token: str):
-    if team_database.user_session_exist(user_id):
+    if team_database.find_team(user_id) != None:
         return 'You already logged in'
     else:
         try:

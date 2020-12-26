@@ -61,7 +61,7 @@ def delete_task(task_id):
 
 def correct_flag(flag):
     data = s.query(Task).filter_by(flag=flag).first()
-    return False if (data == None) else True
+    return data
 
 def not_unique_flag(flag):
     data = s.query(Task).filter_by(flag=flag).first()

@@ -38,8 +38,9 @@ def create_user_session(user_id, team_id):
     s.add(user_session)
     s.commit()
 
-def user_session_exist(user_id):
+def find_team(user_id):
     data = s.query(UserSession).filter_by(user_id=user_id).first()
-    return False if (data == None) else True
+    return data
+
 
 Base.metadata.create_all(engine)
