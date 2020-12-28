@@ -31,7 +31,7 @@ def challenges():
 
     data += '```'
     card = Embed(title='Challenges', description=data, color=discord.Color.blue())
-    
+
     return card
 
 def challenges_info(name):
@@ -47,9 +47,36 @@ def challenges_info(name):
     
     blood = audit_database.firstblood(chall.id)
     if blood != None:
-        team = team_database.find_team_data (blood.team_id)
+        team = team_database.find_team_data(blood.team_id)
         card.add_field(name='Firstblood', value=f':drop_of_blood: {team.name}', inline=False)
 
+    return card
+
+def scoreboard_before_freeze():
+    audits = audit_database.audit_before_freeze()
+    solves = Counter(audit_database.number_of_solves())
+    challs = [audit.task_id for audit in audits]
+    values = {}
+    for chall in challs:
+        values[chall] = int((((score.minimal - score.maximal) / (score.decay * score.decay)) * (solves[chall] * solves[chall])) + score.maximal)
+    
+    scoreboard = {}
+    for audit in audits:
+        if audit.team_id in scoreboard.keys():
+            scoreboard[audit.team_id] += values[audit.task_id]
+        else:
+            scoreboard[audit.team_id] = values[audit.task_id]
+    
+    sorted_scoreboard = dict(sorted(scoreboard.items(), key=lambda item: item[1]))
+    count = 1
+    data = '```py\n'
+    for x in sorted_scoreboard:
+        if count > 10:
+            break
+        team = team_database.find_team_data(x)
+        data += f'{count}. {team.name} [{sorted_scoreboard[x]}]\n'
+    data += '```'
+    card = Embed(title='Scoreboard', description=data, color=discord.Color.blue())
     return card
 
         

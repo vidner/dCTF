@@ -41,7 +41,7 @@ def delete_audit(audit_id):
     data = s.query(Audit).get(audit_id)
     s.delete(data)
     s.commit()
-    
+
 def number_of_solves():
     data = s.query(Audit).filter(Audit.task_id > 0).all()
     return [i.task_id for i in data]
@@ -49,4 +49,9 @@ def number_of_solves():
 def firstblood(task_id):
     data = s.query(Audit).filter_by(task_id=task_id).order_by(Audit.id).first()
     return data
+
+def audit_before_freeze():
+    data = s.query(Audit).filter(Audit.created_at < datetime.datetime.fromtimestamp(config.timeline.freeze, datetime.timezone.utc)).filter(Audit.task_id > 0).all()
+    return data
+
 Base.metadata.create_all(engine)

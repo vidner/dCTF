@@ -56,4 +56,9 @@ def start():
         response = view_controller.challenges_info(name)
         await ctx.send(embed=response)
 
+    @bot.command(name='scoreboard', help='1-10 Scoreboard.')
+    async def submit(ctx):
+        response = view_controller.scoreboard_before_freeze()
+        await ctx.send(embed=response)
+
     bot.run(config.credential.token)
