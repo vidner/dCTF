@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, UniqueConstraint
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -18,6 +18,7 @@ class Audit(Base):
     task_id = Column(Integer)
     flag = Column(String)
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
+    __table_args__ = (UniqueConstraint('team_id', 'task_id', 'flag', name='race_condition'),)
 
 def find_all_audit():
     data = s.query(Audit).all()
@@ -40,10 +41,12 @@ def delete_audit(audit_id):
     data = s.query(Audit).get(audit_id)
     s.delete(data)
     s.commit()
+    
+def number_of_solves():
+    data = s.query(Audit).filter(Audit.task_id > 0).all()
+    return [i.task_id for i in data]
 
 def firstblood(task_id):
-    data = s.query(Audit).filter_by(task_id=task_id).first()
-    return True if (data == None) else False
-
-
+    data = s.query(Audit).filter_by(task_id=task_id).order_by(Audit.id).first()
+    return data
 Base.metadata.create_all(engine)

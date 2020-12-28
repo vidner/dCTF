@@ -21,6 +21,10 @@ class UserSession(Base):
     user_id = Column(String)
     team_id = Column(Integer, ForeignKey('teams.id'))
 
+def find_team_data(team_id):
+    data = s.query(Team).get(team_id)
+    return data
+
 def create_team(name):
     team = Team(name=name)
     s.add(team)

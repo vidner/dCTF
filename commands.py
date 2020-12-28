@@ -1,5 +1,5 @@
 from discord.ext import commands
-from handlers import team_controller, task_controller, audit_controller
+from handlers import team_controller, task_controller, audit_controller, view_controller
 
 import config
 
@@ -45,5 +45,15 @@ def start():
     async def submit(ctx, flag: str):
         response = audit_controller.submit(str(ctx.author.id), flag)
         await ctx.send(response)
+
+    @bot.command(name='challenges', help='List all chalengges.')
+    async def submit(ctx):
+        response = view_controller.challenges()
+        await ctx.send(embed=response)
+
+    @bot.command(name='challenges-info', help='Get chalengges info.')
+    async def submit(ctx, name: str):
+        response = view_controller.challenges_info(name)
+        await ctx.send(embed=response)
 
     bot.run(config.credential.token)

@@ -67,4 +67,12 @@ def not_unique_flag(flag):
     data = s.query(Task).filter_by(flag=flag).first()
     return False if (data == None) else True
 
+def find_all_visible_task():
+    data = s.query(Task).filter_by(visible=True).all()
+    return data
+
+def find_visible_task(name):
+    data = s.query(Task).filter_by(visible=True, name=name).first()
+    return data
+
 Base.metadata.create_all(engine)
