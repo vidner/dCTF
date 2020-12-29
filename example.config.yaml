@@ -8,7 +8,7 @@ timeline:
   end: 1608708274
 
 score:
-  maximal: 500
+  maximal: 1000
   minimal: 100
   decay: 20
 

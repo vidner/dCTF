@@ -8,8 +8,8 @@ def create_task(name, category, description, files, flag):
     if task_database.not_unique_flag(flag):
         return 'Flag must be unique'
 
-    task_database.create_task(name, category, description, files, flag)
-    return 'Task succesfully created'
+    task = task_database.create_task(name, category, description, files, flag)
+    return f'Task with `id {task.id}` succesfully created'
 
 def release_task(task_id):
     
@@ -17,7 +17,7 @@ def release_task(task_id):
         return f'Task with `id {task_id}` didnt exist'
     
     task_database.release_task(task_id)
-    return f'Task succesfully released'
+    return f'Task with `id {task_id}` succesfully released'
 
 def hide_task(task_id):
     

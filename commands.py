@@ -5,7 +5,8 @@ import config
 
 def start():
 
-    bot = commands.Bot(command_prefix='>>')
+    help_command = commands.DefaultHelpCommand(no_category = 'dCTF')
+    bot = commands.Bot(command_prefix='>>', help_command = help_command)
 
     @bot.command(name='register', help='Register your team.')
     async def register(ctx, team: str):
@@ -41,23 +42,23 @@ def start():
         response = task_controller.delete_task(task_id)
         await ctx.send(response)
     
-    @bot.command(name='submit', help='Submit flag.')
+    @bot.command(name='submit', help='Submit flag. ')
     async def submit(ctx, flag: str):
         response = audit_controller.submit(str(ctx.author.id), flag)
         await ctx.send(response)
 
-    @bot.command(name='challenges', help='List all chalengges.')
-    async def submit(ctx):
+    @bot.command(name='challenges', help='List all chalenges.')
+    async def challenges(ctx):
         response = view_controller.challenges()
         await ctx.send(embed=response)
 
     @bot.command(name='challenges-info', help='Get chalengges info.')
-    async def submit(ctx, name: str):
+    async def challenges_info(ctx, name: str):
         response = view_controller.challenges_info(name)
         await ctx.send(embed=response)
 
     @bot.command(name='scoreboard', help='1-10 Scoreboard.')
-    async def submit(ctx):
+    async def scoreboard(ctx):
         response = view_controller.scoreboard_before_freeze()
         await ctx.send(embed=response)
 

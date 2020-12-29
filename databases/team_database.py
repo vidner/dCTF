@@ -21,6 +21,10 @@ class UserSession(Base):
     user_id = Column(String)
     team_id = Column(Integer, ForeignKey('teams.id'))
 
+def find_all_team(team_id):
+    data = s.query(Team).all()
+    return data
+
 def find_team_data(team_id):
     data = s.query(Team).get(team_id)
     return data

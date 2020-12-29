@@ -38,7 +38,10 @@ def create_task(name, category, description, files, flag):
         visible=False
         )
     s.add(task)
+    s.flush()
+    s.refresh(task)
     s.commit()
+    return task
 
 def task_exist(name):
     data = s.query(Task).filter_by(name=name).first()
