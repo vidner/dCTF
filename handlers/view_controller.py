@@ -41,7 +41,7 @@ def challenges_info(name):
     solve = Counter(audit_database.number_of_solves())[chall.id]
     value = max(score.minimal, int(math.ceil((((score.minimal - score.maximal) / (score.decay ** 2)) * (max(solve-1, 0) ** 2)) + score.maximal)))
 
-    data = f'```md\n {chall.description}```'
+    data = f'```md\n{chall.description}```'
     card = Embed(title=chall.name, description=data, url=chall.files, color=discord.Color.blue())
     card.add_field(name='Category', value=chall.category, inline=True)
     card.add_field(name='Solves', value=solve , inline=True)

@@ -18,7 +18,6 @@ class Audit(Base):
     task_id = Column(Integer)
     flag = Column(String)
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
-    __table_args__ = (UniqueConstraint('team_id', 'task_id', 'flag', name='race_condition'),)
 
 def find_all_audit():
     data = s.query(Audit).all()
