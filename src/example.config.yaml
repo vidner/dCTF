@@ -8,8 +8,8 @@ timeline:
   end: 1608708274
 
 score:
-  maximal: 1000
+  maximal: 500
   minimal: 100
   decay: 20
 
-dburl: "postgres://user:password@localhost:5432/database"
+dburl: "postgres://postgres:password@db:5432/dctf"

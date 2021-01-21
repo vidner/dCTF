@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  db:
+    container_name: db
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: dctf
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+
+  bot:
+    container_name: dctf
+    restart: always
+    build: .
+    depends_on:
+      - db
