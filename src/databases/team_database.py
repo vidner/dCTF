@@ -1,11 +1,10 @@
+from config import dburl
 from sqlalchemy import Column, Integer, String, Date, ForeignKey
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-import config
-
-engine = create_engine(config.dburl)
+engine = create_engine(dburl)
 Base = declarative_base()
 Session = sessionmaker(bind=engine)
 s = Session()

@@ -1,12 +1,12 @@
+from config import dburl, timeline
 from sqlalchemy import Column, Integer, String, DateTime, UniqueConstraint
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-import config
 import datetime
 
-engine = create_engine(config.dburl)
+engine = create_engine(dburl)
 Base = declarative_base()
 Session = sessionmaker(bind=engine)
 s = Session()
@@ -50,7 +50,7 @@ def firstblood(task_id):
     return data
 
 def audit_before_freeze():
-    data = s.query(Audit).filter(Audit.created_at < datetime.datetime.fromtimestamp(config.timeline.freeze, datetime.timezone.utc)).filter(Audit.task_id > 0).all()
+    data = s.query(Audit).filter(Audit.created_at < datetime.datetime.fromtimestamp(timeline.freeze, datetime.timezone.utc)).filter(Audit.task_id > 0).all()
     return data
 
 Base.metadata.create_all(engine)

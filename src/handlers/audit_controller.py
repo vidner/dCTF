@@ -1,6 +1,6 @@
+from config import timeline
 from databases import audit_database, task_database, team_database
 
-import config
 import time
 
 def submit(user_id, flag):
@@ -10,7 +10,7 @@ def submit(user_id, flag):
     if session == None: 
         return 'You need to login first'
 
-    if int(time.time()) > config.timeline.end:
+    if int(time.time()) > timeline.end:
         return 'Times up'
 
     data = task_database.correct_flag(flag)

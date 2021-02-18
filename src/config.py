@@ -1,12 +1,5 @@
 import yaml
 
-class Config:
-    def __init__(self, credential, timeline, score, dburl):
-        self.credential = credential
-        self.timeline = timeline
-        self.score = score
-        self.dburl = dburl
-
 class Timeline:
     def __init__(self, timeline):
         self.freeze = timeline["freeze"]
@@ -29,4 +22,4 @@ score = Score(env["score"])
 timeline = Timeline(env["timeline"])
 credential = Credential(env["credential"])
 dburl = env["dburl"]
-config = Config(credential, timeline, score, dburl)
+
